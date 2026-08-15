@@ -1,11 +1,17 @@
 <header class="site-header">
   <div class="nav-container">
     <a href="/" class="site-brand">
-      <span class="brand-name">AlecGhost</span><span class="brand-divider">/</span><span class="brand-sub">Logbook</span>
+      {{- $brand := site.Params.brand | default site.Title -}}
+      {{- if in $brand "/" -}}
+        {{- $parts := split $brand "/" -}}
+        <span class="brand-name">{{ index $parts 0 }}</span><span class="brand-divider">/</span><span class="brand-sub">{{ index $parts 1 }}</span>
+      {{- else -}}
+        <span class="brand-name">{{ $brand }}</span>
+      {{- end -}}
     </a>
 
     <nav class="site-nav">
-      <a href="/overview/" class="nav-link {{ if eq .Section "overview" }}active{{ end }}">Overview</a>
+      <a href="/overview/" class="nav-link {{ if eq .Section "overview" }}active{{ end }}">{{ site.Params.overviewNavLabel | default "Overview" }}</a>
       
       {{ $standalone := site.Params.standaloneSection | default "notes" }}
       {{ range where site.Sections "Section" "not in" (slice "search" "overview" $standalone) }}

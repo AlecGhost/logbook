@@ -1,0 +1,13 @@
+<footer class="site-footer">
+  <div class="footer-container">
+    <p>
+      &copy; {{ now.Format "2006" }}
+      {{- with site.Params.github }}
+        <a href="{{ . }}" target="_blank" rel="noopener noreferrer">{{ site.Params.author | default site.Title }}</a>
+      {{- else }}
+        {{ site.Params.author | default site.Title }}
+      {{- end }}.
+      {{ with site.Copyright }}{{ . }}{{ else }}Built with Hugo.{{ end }}
+    </p>
+  </div>
+</footer>
