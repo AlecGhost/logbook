@@ -3,11 +3,16 @@
   let isInitialized = false;
   let currentCollection = 'all';
   let selectedIndex = -1;
+  let collectionsMap = new Map(); // slug -> title
 
   const modal = document.getElementById('search-modal');
   const searchInput = document.getElementById('search-input');
   const resultsContainer = document.getElementById('search-results');
-  const filterButtons = document.querySelectorAll('#search-modal .filter-btn');
+  const modalFilterBar = document.getElementById('search-modal-filter-bar');
+
+  const pageInput = document.getElementById('search-page-input');
+  const pageResults = document.getElementById('search-page-results');
+  const pageFilterBar = document.getElementById('search-page-filter-bar');
 
   function getSearchIndexUrl() {
     const metaTag = document.querySelector('meta[name="search-index"]');
@@ -22,8 +27,60 @@
       if (!res.ok) throw new Error('HTTP ' + res.status + ' loading ' + url);
       searchData = await res.json();
       isInitialized = true;
+
+      // Dynamically discover all collections from the data
+      collectionsMap.clear();
+      searchData.forEach((item) => {
+        if (item.collection && item.collection.trim()) {
+          const slug = item.collection.trim().toLowerCase();
+          const title = item.collectionTitle || item.collection;
+          if (!collectionsMap.has(slug)) {
+            collectionsMap.set(slug, title);
+          }
+        }
+      });
+
+      renderFilterBars();
     } catch (err) {
       console.error('Failed to load search index:', err);
+    }
+  }
+
+  function renderFilterBars() {
+    // Populate Modal Filter Bar
+    if (modalFilterBar) {
+      let html = `<button class="filter-btn ${currentCollection === 'all' ? 'active' : ''}" data-collection="all">All</button>`;
+      for (const [slug, title] of collectionsMap.entries()) {
+        const active = currentCollection === slug ? 'active' : '';
+        html += `<button class="filter-btn ${active}" data-collection="${escapeHtml(slug)}">${escapeHtml(title)}</button>`;
+      }
+      modalFilterBar.innerHTML = html;
+      modalFilterBar.querySelectorAll('.filter-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          modalFilterBar.querySelectorAll('.filter-btn').forEach((b) => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentCollection = btn.getAttribute('data-collection') || 'all';
+          performModalSearch();
+        });
+      });
+    }
+
+    // Populate Standalone Search Page Filter Bar
+    if (pageFilterBar) {
+      let html = `<button class="filter-btn ${currentCollection === 'all' ? 'active' : ''}" data-collection="all">All Collections</button>`;
+      for (const [slug, title] of collectionsMap.entries()) {
+        const active = currentCollection === slug ? 'active' : '';
+        html += `<button class="filter-btn ${active}" data-collection="${escapeHtml(slug)}">${escapeHtml(title)}</button>`;
+      }
+      pageFilterBar.innerHTML = html;
+      pageFilterBar.querySelectorAll('.filter-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          pageFilterBar.querySelectorAll('.filter-btn').forEach((b) => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentCollection = btn.getAttribute('data-collection') || 'all';
+          performPageSearch();
+        });
+      });
     }
   }
 
@@ -65,7 +122,6 @@
     const textLower = fullText.toLowerCase();
     let firstMatchIndex = -1;
 
-    // Find the earliest occurrence of any search term in the body text
     for (const term of terms) {
       const idx = textLower.indexOf(term.toLowerCase());
       if (idx !== -1 && (firstMatchIndex === -1 || idx < firstMatchIndex)) {
@@ -73,19 +129,16 @@
       }
     }
 
-    // If term is only in title/tags, return the beginning of the text
     if (firstMatchIndex === -1) {
       return fullText.length > maxLength
         ? fullText.substring(0, maxLength).trim() + '...'
         : fullText;
     }
 
-    // Context before and after the matched word
     const contextBefore = 35;
     let start = Math.max(0, firstMatchIndex - contextBefore);
     let end = Math.min(fullText.length, firstMatchIndex + maxLength - contextBefore);
 
-    // Snap start to word boundary
     if (start > 0) {
       const spaceIdx = fullText.lastIndexOf(' ', start);
       if (spaceIdx !== -1 && spaceIdx > start - 15) {
@@ -93,7 +146,6 @@
       }
     }
 
-    // Snap end to word boundary
     if (end < fullText.length) {
       const spaceIdx = fullText.indexOf(' ', end);
       if (spaceIdx !== -1 && spaceIdx < end + 20) {
@@ -112,7 +164,7 @@
     const rawTerms = query ? query.toLowerCase().trim().split(/\s+/).filter(Boolean) : [];
     let items = searchData;
 
-    // Collection filtering
+    // Filter by collection if not "all"
     if (collection && collection !== 'all') {
       items = items.filter(
         (item) => item.collection && item.collection.toLowerCase() === collection.toLowerCase()
@@ -150,7 +202,6 @@
           termScore += 10;
         }
 
-        // Every term MUST match in at least one field (Title, Tags, Summary, or Content)
         if (termScore === 0) {
           matchedAll = false;
           break;
@@ -181,12 +232,7 @@
       .slice(0, 12)
       .map((r, index) => {
         const item = r.item;
-        const collectionClass =
-          item.collection === 'tech'
-            ? 'badge-tech'
-            : item.collection === 'dnd'
-            ? 'badge-dnd'
-            : '';
+        const displayCollection = item.collectionTitle || item.collection;
         const highlightedTitle = highlightMatches(item.title, r.terms);
         const snippetText = extractContextSnippet(item, r.terms, 150);
         const highlightedSnippet = highlightMatches(snippetText, r.terms);
@@ -197,10 +243,8 @@
             <div class="search-result-header">
               <span class="search-result-title">${highlightedTitle}</span>
               ${
-                item.collection
-                  ? `<span class="collection-badge ${collectionClass}">${escapeHtml(
-                      item.collection
-                    )}</span>`
+                displayCollection
+                  ? `<span class="collection-badge">${escapeHtml(displayCollection)}</span>`
                   : ''
               }
             </div>
@@ -257,7 +301,6 @@
 
   // Keyboard Navigation
   document.addEventListener('keydown', (e) => {
-    // ⌘K / Ctrl+K or / to open
     if (
       (e.key === 'k' && (e.metaKey || e.ctrlKey)) ||
       (e.key === '/' &&
@@ -293,19 +336,9 @@
     }
   });
 
-  // Event Listeners for Modal
   if (searchInput) {
     searchInput.addEventListener('input', performModalSearch);
   }
-
-  filterButtons.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      filterButtons.forEach((b) => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentCollection = btn.getAttribute('data-collection') || 'all';
-      performModalSearch();
-    });
-  });
 
   if (modal) {
     modal.addEventListener('click', (e) => {
@@ -315,7 +348,6 @@
     });
   }
 
-  // Attach search trigger buttons
   document.querySelectorAll('.search-trigger-btn').forEach((btn) => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -323,81 +355,59 @@
     });
   });
 
-  // Standalone Search Page logic (if present on /search/)
-  const pageInput = document.getElementById('search-page-input');
-  const pageResults = document.getElementById('search-page-results');
-  const pageFilterBtns = document.querySelectorAll('.search-page-view .filter-btn');
+  // Standalone Search Page Logic
+  function renderPageResults(results) {
+    if (!pageResults) return;
+    if (results.length === 0) {
+      pageResults.innerHTML = '<div class="search-empty">No results found matching your query.</div>';
+      return;
+    }
 
-  if (pageInput && pageResults) {
-    let pageCollection = 'all';
+    pageResults.innerHTML = results
+      .map((r) => {
+        const item = r.item;
+        const displayCollection = item.collectionTitle || item.collection;
+        const highlightedTitle = highlightMatches(item.title, r.terms);
+        const snippetText = extractContextSnippet(item, r.terms, 180);
+        const highlightedSnippet = highlightMatches(snippetText, r.terms);
 
-    function renderPageResults(results) {
-      if (results.length === 0) {
-        pageResults.innerHTML = '<div class="search-empty">No results found matching your query.</div>';
-        return;
-      }
-
-      pageResults.innerHTML = results
-        .map((r) => {
-          const item = r.item;
-          const collectionClass =
-            item.collection === 'tech'
-              ? 'badge-tech'
-              : item.collection === 'dnd'
-              ? 'badge-dnd'
-              : '';
-          const highlightedTitle = highlightMatches(item.title, r.terms);
-          const snippetText = extractContextSnippet(item, r.terms, 180);
-          const highlightedSnippet = highlightMatches(snippetText, r.terms);
-
-          return `
-          <li style="margin-bottom: 0.75rem; list-style: none;">
-            <a href="${item.url}" class="post-item">
-              <div class="post-item-meta">
-                ${
-                  item.collection
-                    ? `<span class="collection-badge ${collectionClass}">${escapeHtml(
-                        item.collection
-                      )}</span>`
-                    : ''
-                }
-                <span>${escapeHtml(item.date || '')}</span>
-              </div>
-              <h3 class="post-item-title">${highlightedTitle}</h3>
+        return `
+        <li style="margin-bottom: 0.75rem; list-style: none;">
+          <a href="${item.url}" class="post-item">
+            <div class="post-item-meta">
               ${
-                highlightedSnippet
-                  ? `<p class="post-item-summary">${highlightedSnippet}</p>`
+                displayCollection
+                  ? `<span class="collection-badge">${escapeHtml(displayCollection)}</span>`
                   : ''
               }
-            </a>
-          </li>
-        `;
-        })
-        .join('');
-    }
+              <span>${escapeHtml(item.date || '')}</span>
+            </div>
+            <h3 class="post-item-title">${highlightedTitle}</h3>
+            ${
+              highlightedSnippet
+                ? `<p class="post-item-summary">${highlightedSnippet}</p>`
+                : ''
+            }
+          </a>
+        </li>
+      `;
+      })
+      .join('');
+  }
 
-    async function performPageSearch() {
-      await loadSearchData();
-      const q = pageInput.value.trim();
-      const results = searchArticles(q, pageCollection);
-      renderPageResults(results);
-    }
+  async function performPageSearch() {
+    await loadSearchData();
+    const q = pageInput ? pageInput.value.trim() : '';
+    const results = searchArticles(q, currentCollection);
+    renderPageResults(results);
+  }
 
+  if (pageInput && pageResults) {
     pageInput.addEventListener('input', performPageSearch);
-
-    pageFilterBtns.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        pageFilterBtns.forEach((b) => b.classList.remove('active'));
-        btn.classList.add('active');
-        pageCollection = btn.getAttribute('data-collection') || 'all';
-        performPageSearch();
-      });
-    });
-
     loadSearchData().then(() => performPageSearch());
   }
 
-  // Pre-fetch on idle
+  // Pre-fetch search data on idle
   if ('requestIdleCallback' in window) {
     window.requestIdleCallback(() => loadSearchData());
   } else {

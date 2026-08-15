@@ -38,9 +38,5 @@ enableRobotsTXT = true
 [params]
   author = "Alex"
   description = "A minimalist personal logbook, engineering notes, and tabletop campaigns."
-  navLinks = [
-    { name = "Overview", url = "/" },
-    { name = "Tech", url = "/tech/" },
-    { name = "DnD", url = "/dnd/" },
-    { name = "Search", url = "/search/" }
-  ]
+  standaloneSection = "notes"
+

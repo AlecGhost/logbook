@@ -6,8 +6,11 @@
 
     <nav class="site-nav">
       <a href="/" class="nav-link {{ if .IsHome }}active{{ end }}">Overview</a>
-      <a href="/tech/" class="nav-link {{ if eq .Section "tech" }}active{{ end }}">Tech</a>
-      <a href="/dnd/" class="nav-link {{ if eq .Section "dnd" }}active{{ end }}">DnD</a>
+      
+      {{ $standalone := site.Params.standaloneSection | default "notes" }}
+      {{ range where site.Sections "Section" "not in" (slice "search" $standalone) }}
+        <a href="{{ .RelPermalink }}" class="nav-link {{ if eq $.Section .Section }}active{{ end }}">{{ .Title }}</a>
+      {{ end }}
 
       <button class="search-trigger-btn" aria-label="Open search">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

@@ -1,10 +1,11 @@
 {{ define "main" }}
+{{ $standalone := site.Params.standaloneSection | default "notes" }}
 <article class="single-article">
   <header class="article-header">
     <div class="article-meta" style="margin-bottom: 0.75rem;">
-      {{ if .Section }}
-        <a href="/{{ .Section }}/" class="collection-badge {{ if eq .Section "tech" }}badge-tech{{ else if eq .Section "dnd" }}badge-dnd{{ end }}">
-          &larr; {{ .Section }}
+      {{ if and .Section (ne .Section $standalone) (ne .Section "search") }}
+        <a href="/{{ .Section }}/" class="collection-badge">
+          &larr; {{ with site.GetPage (printf "/%s" .Section) }}{{ .Title }}{{ else }}{{ $.Section }}{{ end }}
         </a>
       {{ end }}
       <span>{{ .Date.Format "January 02, 2006" }}</span>

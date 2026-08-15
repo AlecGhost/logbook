@@ -5,25 +5,23 @@
     <p class="hero-subtitle">{{ site.Params.description }}</p>
   </section>
 
-  <div class="collections-grid">
-    <a href="/tech/" class="collection-card">
-      <div class="collection-card-header">
-        <span class="collection-title">Engineering & Tech</span>
-        <span class="collection-count">{{ len (where site.RegularPages "Section" "tech") }} articles</span>
-      </div>
-      <p class="collection-desc">Software development, compilers, syntax highlighters, Rust tools, and architectural notes.</p>
-      <span class="collection-link-text">Browse Tech &rarr;</span>
-    </a>
+  {{ $standalone := site.Params.standaloneSection | default "notes" }}
+  {{ $collections := where site.Sections "Section" "not in" (slice "search" $standalone) }}
 
-    <a href="/dnd/" class="collection-card">
+  {{ if gt (len $collections) 0 }}
+  <div class="collections-grid">
+    {{ range $collections }}
+    <a href="{{ .RelPermalink }}" class="collection-card">
       <div class="collection-card-header">
-        <span class="collection-title">Stormlight Archive TTRPG</span>
-        <span class="collection-count">{{ len (where site.RegularPages "Section" "dnd") }} articles</span>
+        <span class="collection-title">{{ .Title }}</span>
+        <span class="collection-count">{{ len .RegularPages }} {{ if eq (len .RegularPages) 1 }}article{{ else }}articles{{ end }}</span>
       </div>
-      <p class="collection-desc">Campaign logs, character lore, Roshar world guide, rules reference, and session diaries.</p>
-      <span class="collection-link-text">Browse DnD &rarr;</span>
+      <p class="collection-desc">{{ with .Description }}{{ . }}{{ else }}Articles and notes in {{ .Title }}.{{ end }}</p>
+      <span class="collection-link-text">Browse {{ .Title }} &rarr;</span>
     </a>
+    {{ end }}
   </div>
+  {{ end }}
 
   <section class="recent-posts-section">
     <div class="section-header">
@@ -31,11 +29,11 @@
     </div>
 
     <div class="posts-list">
-      {{ range first 10 site.RegularPages.ByDate.Reverse }}
+      {{ range first 15 site.RegularPages.ByDate.Reverse }}
       <a href="{{ .RelPermalink }}" class="post-item">
         <div class="post-item-meta">
-          {{ if .Section }}
-            <span class="collection-badge {{ if eq .Section "tech" }}badge-tech{{ else if eq .Section "dnd" }}badge-dnd{{ end }}">{{ .Section }}</span>
+          {{ if and .Section (ne .Section $standalone) (ne .Section "search") }}
+            <span class="collection-badge">{{ .Section }}</span>
           {{ end }}
           <span>{{ .Date.Format "Jan 02, 2006" }}</span>
           <span>&middot;</span>
