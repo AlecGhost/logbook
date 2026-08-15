@@ -690,6 +690,15 @@ img {
   -webkit-box-orient: vertical;
 }
 
+mark.search-highlight {
+  background: rgba(88, 166, 255, 0.25);
+  color: #79c0ff;
+  padding: 0.05rem 0.2rem;
+  border-radius: 2px;
+  font-weight: 600;
+}
+
+
 .search-empty {
   padding: 2.5rem 1rem;
   text-align: center;
