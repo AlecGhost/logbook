@@ -99,17 +99,47 @@ img {
 .site-brand {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.15rem;
   font-weight: 700;
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   color: var(--text-main);
   letter-spacing: -0.02em;
 }
 
 .site-brand:hover {
   text-decoration: none;
-  color: var(--accent);
 }
+
+.brand-name {
+  color: var(--text-main);
+}
+
+.brand-divider {
+  color: var(--text-muted);
+  font-weight: 400;
+  margin: 0 0.15rem;
+}
+
+.brand-sub {
+  color: var(--text-main);
+  font-weight: 700;
+}
+
+
+.nav-github-link {
+  display: inline-flex;
+  align-items: center;
+  color: var(--text-secondary);
+  transition: color var(--transition), transform var(--transition);
+  padding: 0.2rem;
+}
+
+.nav-github-link:hover {
+  color: var(--text-main);
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
 
 .site-nav {
   display: flex;
@@ -481,20 +511,8 @@ img {
 .codebox-title-group {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
 }
 
-.codebox-dot-group {
-  display: flex;
-  gap: 4px;
-}
-
-.codebox-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: #45475a;
-}
 
 .codebox-title {
   font-family: var(--font-mono);

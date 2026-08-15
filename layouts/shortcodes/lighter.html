@@ -21,13 +21,9 @@
 <div class="codebox">
   <div class="codebox-header">
     <div class="codebox-title-group">
-      <div class="codebox-dot-group">
-        <div class="codebox-dot"></div>
-        <div class="codebox-dot"></div>
-        <div class="codebox-dot"></div>
-      </div>
       <span class="codebox-title">{{ $title }}</span>
     </div>
+
     <div style="display: flex; align-items: center; gap: 0.5rem;">
       {{ with $lang }}<span class="codebox-lang">{{ . }}</span>{{ end }}
       <button class="codebox-copy-btn" onclick="copyCodebox(this)">Copy</button>

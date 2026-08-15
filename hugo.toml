@@ -36,7 +36,10 @@ enableRobotsTXT = true
     style = "catppuccin-mocha"
 
 [params]
-  author = "Alex"
+  author = "AlecGhost"
   description = "A minimalist personal logbook, engineering notes, and tabletop campaigns."
   standaloneSection = "notes"
+  github = "https://github.com/AlecGhost"
+  headerTitle = "AlecGhost/Logbook"
+
 

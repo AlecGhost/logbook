@@ -1,5 +1,7 @@
 <footer class="site-footer">
   <div class="footer-container">
-    <p>&copy; {{ now.Format "2006" }} {{ site.Params.author }}. Built with Hugo.</p>
+    <p>
+      &copy; {{ now.Format "2006" }} <a href="{{ site.Params.github | default "https://github.com/AlecGhost" }}" target="_blank" rel="noopener noreferrer">{{ site.Params.author }}</a>. Built with Hugo.
+    </p>
   </div>
 </footer>
