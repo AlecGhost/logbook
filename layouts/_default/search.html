@@ -1,0 +1,103 @@
+{{ define "main" }}
+<div class="search-page-view">
+  <header class="article-header">
+    <h1 class="article-title">Search Articles</h1>
+    <p class="hero-subtitle">Instant full-text and collection-filtered search across all notes.</p>
+  </header>
+
+  <div class="search-input-wrapper" style="border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface); margin-bottom: 1rem;">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="11" cy="11" r="8"></circle>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </svg>
+    <input id="search-page-input" class="search-input" type="text" placeholder="Type here to search across collections..." autofocus />
+  </div>
+
+  <div class="search-filter-bar" style="border-radius: var(--radius-md); border: 1px solid var(--border); margin-bottom: 1.5rem;">
+    <button class="filter-btn active" data-collection="all">All Collections</button>
+    <button class="filter-btn" data-collection="tech">Tech</button>
+    <button class="filter-btn" data-collection="dnd">DnD</button>
+  </div>
+
+  <ul id="search-page-results" class="search-results-list" style="padding: 0;"></ul>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const pageInput = document.getElementById('search-page-input');
+  const pageResults = document.getElementById('search-page-results');
+  const pageFilterBtns = document.querySelectorAll('.search-page-view .filter-btn');
+  let pFuse = null;
+  let pData = [];
+  let pCollection = 'all';
+
+  async function loadIndex() {
+    try {
+      const res = await fetch('/index.json');
+      pData = await res.json();
+      pFuse = new Fuse(pData, {
+        keys: [
+          { name: 'title', weight: 0.5 },
+          { name: 'tags', weight: 0.2 },
+          { name: 'summary', weight: 0.15 },
+          { name: 'content', weight: 0.15 },
+        ],
+        threshold: 0.3,
+        ignoreLocation: true,
+        minMatchCharLength: 2,
+      });
+      render(pData.map(item => ({ item })));
+    } catch(e) {
+      console.error(e);
+    }
+  }
+
+  function render(results) {
+    if (pCollection !== 'all') {
+      results = results.filter(r => r.item.collection && r.item.collection.toLowerCase() === pCollection.toLowerCase());
+    }
+    if (!results.length) {
+      pageResults.innerHTML = '<div class="search-empty">No results found.</div>';
+      return;
+    }
+    pageResults.innerHTML = results.map(r => `
+      <li style="margin-bottom: 0.75rem;">
+        <a href="${r.item.url}" class="post-item">
+          <div class="post-item-meta">
+            ${r.item.collection ? `<span class="collection-badge ${r.item.collection === 'tech' ? 'badge-tech' : 'badge-dnd'}">${r.item.collection}</span>` : ''}
+            <span>${r.item.date || ''}</span>
+          </div>
+          <h3 class="post-item-title">${r.item.title}</h3>
+          ${r.item.summary ? `<p class="post-item-summary">${r.item.summary}</p>` : ''}
+        </a>
+      </li>
+    `).join('');
+  }
+
+  pageInput.addEventListener('input', () => {
+    const q = pageInput.value.trim();
+    if (!q) {
+      render(pData.map(item => ({ item })));
+    } else if (pFuse) {
+      render(pFuse.search(q));
+    }
+  });
+
+  pageFilterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      pageFilterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      pCollection = btn.getAttribute('data-collection') || 'all';
+      const q = pageInput.value.trim();
+      if (!q) {
+        render(pData.map(item => ({ item })));
+      } else if (pFuse) {
+        render(pFuse.search(q));
+      }
+    });
+  });
+
+  loadIndex();
+});
+</script>
+{{ end }}

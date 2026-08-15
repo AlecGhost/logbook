@@ -1,0 +1,46 @@
+baseURL = "/"
+defaultContentLanguage = "en"
+title = "Logbook"
+enableRobotsTXT = true
+
+[languages]
+  [languages.en]
+    label = "English"
+    locale = "en-us"
+
+
+[pagination]
+  pagerSize = 10
+
+[taxonomies]
+  tag = "tags"
+  collection = "collections"
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  section = ["HTML", "RSS"]
+  taxonomy = ["HTML"]
+  term = ["HTML"]
+
+[outputFormats.JSON]
+  mediaType = "application/json"
+  baseName = "index"
+  isPlainText = true
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    noClasses = false
+    style = "catppuccin-mocha"
+
+[params]
+  author = "Alex"
+  description = "A minimalist personal logbook, engineering notes, and tabletop campaigns."
+  navLinks = [
+    { name = "Overview", url = "/" },
+    { name = "Tech", url = "/tech/" },
+    { name = "DnD", url = "/dnd/" },
+    { name = "Search", url = "/search/" }
+  ]

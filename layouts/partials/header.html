@@ -1,0 +1,22 @@
+<header class="site-header">
+  <div class="nav-container">
+    <a href="/" class="site-brand">
+      <span>{{ site.Title }}</span>
+    </a>
+
+    <nav class="site-nav">
+      <a href="/" class="nav-link {{ if .IsHome }}active{{ end }}">Overview</a>
+      <a href="/tech/" class="nav-link {{ if eq .Section "tech" }}active{{ end }}">Tech</a>
+      <a href="/dnd/" class="nav-link {{ if eq .Section "dnd" }}active{{ end }}">DnD</a>
+
+      <button class="search-trigger-btn" aria-label="Open search">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <span>Search</span>
+        <span class="kbd-shortcut">⌘K</span>
+      </button>
+    </nav>
+  </div>
+</header>

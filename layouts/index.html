@@ -1,0 +1,53 @@
+{{ define "main" }}
+<div class="homepage">
+  <section class="hero-section">
+    <h1 class="hero-title">{{ site.Title }}</h1>
+    <p class="hero-subtitle">{{ site.Params.description }}</p>
+  </section>
+
+  <div class="collections-grid">
+    <a href="/tech/" class="collection-card">
+      <div class="collection-card-header">
+        <span class="collection-title">Engineering & Tech</span>
+        <span class="collection-count">{{ len (where site.RegularPages "Section" "tech") }} articles</span>
+      </div>
+      <p class="collection-desc">Software development, compilers, syntax highlighters, Rust tools, and architectural notes.</p>
+      <span class="collection-link-text">Browse Tech &rarr;</span>
+    </a>
+
+    <a href="/dnd/" class="collection-card">
+      <div class="collection-card-header">
+        <span class="collection-title">Stormlight Archive TTRPG</span>
+        <span class="collection-count">{{ len (where site.RegularPages "Section" "dnd") }} articles</span>
+      </div>
+      <p class="collection-desc">Campaign logs, character lore, Roshar world guide, rules reference, and session diaries.</p>
+      <span class="collection-link-text">Browse DnD &rarr;</span>
+    </a>
+  </div>
+
+  <section class="recent-posts-section">
+    <div class="section-header">
+      <h2 class="section-title">Recent Entries</h2>
+    </div>
+
+    <div class="posts-list">
+      {{ range first 10 site.RegularPages.ByDate.Reverse }}
+      <a href="{{ .RelPermalink }}" class="post-item">
+        <div class="post-item-meta">
+          {{ if .Section }}
+            <span class="collection-badge {{ if eq .Section "tech" }}badge-tech{{ else if eq .Section "dnd" }}badge-dnd{{ end }}">{{ .Section }}</span>
+          {{ end }}
+          <span>{{ .Date.Format "Jan 02, 2006" }}</span>
+          <span>&middot;</span>
+          <span>{{ .ReadingTime }} min read</span>
+        </div>
+        <h3 class="post-item-title">{{ .Title }}</h3>
+        <p class="post-item-summary">
+          {{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 160 }}{{ end }}
+        </p>
+      </a>
+      {{ end }}
+    </div>
+  </section>
+</div>
+{{ end }}

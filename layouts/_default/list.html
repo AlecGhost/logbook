@@ -1,0 +1,36 @@
+{{ define "main" }}
+<div class="list-page">
+  <header class="article-header">
+    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+      <span class="collection-badge {{ if eq .Section "tech" }}badge-tech{{ else if eq .Section "dnd" }}badge-dnd{{ end }}">{{ .Section }}</span>
+      <span style="font-size: 0.85rem; color: var(--text-muted);">{{ len .Pages }} entries</span>
+    </div>
+    <h1 class="article-title">{{ .Title }}</h1>
+    {{ with .Description }}
+      <p class="hero-subtitle">{{ . }}</p>
+    {{ end }}
+  </header>
+
+  {{ with .Content }}
+    <div class="article-content" style="margin-bottom: 2rem;">
+      {{ . }}
+    </div>
+  {{ end }}
+
+  <div class="posts-list">
+    {{ range .Pages.ByDate.Reverse }}
+    <a href="{{ .RelPermalink }}" class="post-item">
+      <div class="post-item-meta">
+        <span>{{ .Date.Format "Jan 02, 2006" }}</span>
+        <span>&middot;</span>
+        <span>{{ .ReadingTime }} min read</span>
+      </div>
+      <h3 class="post-item-title">{{ .Title }}</h3>
+      <p class="post-item-summary">
+        {{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 160 }}{{ end }}
+      </p>
+    </a>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

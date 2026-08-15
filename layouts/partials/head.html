@@ -1,0 +1,12 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} | {{ site.Title }}{{ end }}</title>
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}">
+
+{{ $catppuccin := resources.Get "css/catppuccin-mocha.css" }}
+{{ $arborium := resources.Get "css/arborium.css" }}
+{{ $main := resources.Get "css/main.css" }}
+
+{{ with $catppuccin }}<link rel="stylesheet" href="{{ .RelPermalink }}">{{ end }}
+{{ with $arborium }}<link rel="stylesheet" href="{{ .RelPermalink }}">{{ end }}
+{{ with $main }}<link rel="stylesheet" href="{{ .RelPermalink }}">{{ end }}

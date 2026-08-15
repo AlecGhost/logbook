@@ -1,0 +1,12 @@
+[{{ range $i, $page := where site.RegularPages "Type" "not in" (slice "page" "json") }}
+  {{ if $i }},{{ end }}
+  {
+    "title": {{ $page.Title | jsonify }},
+    "url": {{ $page.RelPermalink | jsonify }},
+    "collection": {{ $page.Section | jsonify }},
+    "tags": {{ $page.Params.tags | default (slice) | jsonify }},
+    "date": {{ $page.Date.Format "2006-01-02" | jsonify }},
+    "summary": {{ $page.Summary | plainify | jsonify }},
+    "content": {{ $page.Plain | jsonify }}
+  }
+{{ end }}]
