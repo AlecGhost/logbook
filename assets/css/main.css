@@ -303,6 +303,87 @@ img {
   color: var(--text-main);
 }
 
+.section-more-link {
+  font-size: 0.85rem;
+  color: var(--accent);
+  font-weight: 500;
+  transition: color var(--transition);
+}
+
+.section-more-link:hover {
+  text-decoration: underline;
+}
+
+.recent-posts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.recent-post-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  aspect-ratio: 1 / 1;
+  transition: background-color var(--transition), border-color var(--transition);
+}
+
+.recent-post-card:hover {
+  background: var(--surface-hover);
+  border-color: var(--border-hover);
+  text-decoration: none;
+}
+
+.recent-post-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.6rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.recent-post-date {
+  font-family: var(--font-mono);
+}
+
+.recent-post-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-main);
+  line-height: 1.35;
+  margin-bottom: 0.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.recent-post-summary {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.recent-post-footer {
+  margin-top: 0.75rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: flex-end;
+}
+
 .posts-list {
   display: flex;
   flex-direction: column;
@@ -336,14 +417,17 @@ img {
 .collection-badge {
   font-size: 0.75rem;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 0.1rem 0.45rem;
+  text-transform: capitalize;
+  letter-spacing: 0.03em;
+  padding: 0.15rem 0.5rem;
   border-radius: var(--radius-sm);
   background: var(--bg);
   border: 1px solid var(--border);
-  color: var(--text-secondary);
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
 }
+
 
 .badge-tech {
   color: var(--accent-tech);
@@ -744,6 +828,12 @@ mark.search-highlight {
    RESPONSIVE DESIGN
    ========================================================================== */
 
+@media (max-width: 768px) {
+  .recent-posts-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 640px) {
   .nav-container {
     padding: 0.85rem 1rem;
@@ -760,8 +850,18 @@ mark.search-highlight {
   .collections-grid {
     grid-template-columns: 1fr;
   }
+
+  .recent-posts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .recent-post-card {
+    aspect-ratio: auto;
+    min-height: 160px;
+  }
   
   .search-container {
     margin: 0 0.75rem;
   }
 }
+

@@ -5,10 +5,10 @@
     </a>
 
     <nav class="site-nav">
-      <a href="/" class="nav-link {{ if .IsHome }}active{{ end }}">Overview</a>
+      <a href="/overview/" class="nav-link {{ if eq .Section "overview" }}active{{ end }}">Overview</a>
       
       {{ $standalone := site.Params.standaloneSection | default "notes" }}
-      {{ range where site.Sections "Section" "not in" (slice "search" $standalone) }}
+      {{ range where site.Sections "Section" "not in" (slice "search" "overview" $standalone) }}
         <a href="{{ .RelPermalink }}" class="nav-link {{ if eq $.Section .Section }}active{{ end }}">{{ .Title }}</a>
       {{ end }}
 

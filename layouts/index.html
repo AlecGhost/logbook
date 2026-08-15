@@ -6,7 +6,7 @@
   </section>
 
   {{ $standalone := site.Params.standaloneSection | default "notes" }}
-  {{ $collections := where site.Sections "Section" "not in" (slice "search" $standalone) }}
+  {{ $collections := where site.Sections "Section" "not in" (slice "search" "overview" $standalone) }}
 
   {{ if gt (len $collections) 0 }}
   <div class="collections-grid">
@@ -26,23 +26,25 @@
   <section class="recent-posts-section">
     <div class="section-header">
       <h2 class="section-title">Recent Entries</h2>
+      <a href="/overview/" class="section-more-link">View all &rarr;</a>
     </div>
 
-    <div class="posts-list">
-      {{ range first 15 site.RegularPages.ByDate.Reverse }}
-      <a href="{{ .RelPermalink }}" class="post-item">
-        <div class="post-item-meta">
-          {{ if and .Section (ne .Section $standalone) (ne .Section "search") }}
-            <span class="collection-badge">{{ .Section }}</span>
+    <div class="recent-posts-grid">
+      {{ range first 6 site.RegularPages.ByDate.Reverse }}
+      <a href="{{ .RelPermalink }}" class="recent-post-card">
+        <div class="recent-post-meta">
+          {{ if and .Section (ne .Section $standalone) (ne .Section "search") (ne .Section "overview") }}
+            <span class="collection-badge">{{ with site.GetPage (printf "/%s" .Section) }}{{ .Title }}{{ else }}{{ .Section }}{{ end }}</span>
           {{ end }}
-          <span>{{ .Date.Format "Jan 02, 2006" }}</span>
-          <span>&middot;</span>
+          <span class="recent-post-date">{{ .Date.Format "Jan 02" }}</span>
+        </div>
+        <h3 class="recent-post-title">{{ .Title }}</h3>
+        <p class="recent-post-summary">
+          {{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 100 }}{{ end }}
+        </p>
+        <div class="recent-post-footer">
           <span>{{ .ReadingTime }} min read</span>
         </div>
-        <h3 class="post-item-title">{{ .Title }}</h3>
-        <p class="post-item-summary">
-          {{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 160 }}{{ end }}
-        </p>
       </a>
       {{ end }}
     </div>
