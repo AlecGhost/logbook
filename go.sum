@@ -1,4 +1,8 @@
+github.com/AlecGhost/lighter/hugo v0.0.0-20260816163307-ee623f7868c2 h1:qJYZXEEwmpgUhY1AiPogf7XTFEzTQyKKGxF5e88xS+s=
+github.com/AlecGhost/lighter/hugo v0.0.0-20260816163307-ee623f7868c2/go.mod h1:NTnbmzl4v2BNVgypMfohZSFy4Dw+sDPhCH5sFi3Ry1A=
 github.com/AlecGhost/spin v0.0.0-20260815225007-8f9621fbd65f h1:oGy2tE5o+dAWniF1iD5RxINcLDYSiqWroG3NW2z0Svc=
 github.com/AlecGhost/spin v0.0.0-20260815225007-8f9621fbd65f/go.mod h1:bEL87dipCjsFdpOdQrnfEZlLD8bRTBbKylDs0ZyQJrU=
 github.com/AlecGhost/spin v0.0.0-20260816080032-373f4f1ea476 h1:eaUKCnppQb/casxlVhalNnzc5v0oRqHW9dfXMCiepn0=
 github.com/AlecGhost/spin v0.0.0-20260816080032-373f4f1ea476/go.mod h1:bEL87dipCjsFdpOdQrnfEZlLD8bRTBbKylDs0ZyQJrU=
+github.com/AlecGhost/spin v0.0.0-20260816163430-af20f822dfb4 h1:kgKUqoAdVDvVvnqhLucDJklpZgPV7AzwIl3bNCLkAnU=
+github.com/AlecGhost/spin v0.0.0-20260816163430-af20f822dfb4/go.mod h1:bEL87dipCjsFdpOdQrnfEZlLD8bRTBbKylDs0ZyQJrU=
