@@ -1,5 +1,5 @@
 ---
 title: "Overview"
-description: "Chronological archive of all articles, logs, and notes."
+description: "Find all published logs below."
 layout: "overview"
 ---

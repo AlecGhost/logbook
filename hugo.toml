@@ -1,8 +1,11 @@
 baseURL = "/"
 defaultContentLanguage = "en"
 title = "AlecGhost's Logbook"
-theme = "spin"
 enableRobotsTXT = true
+
+[module]
+  [[module.imports]]
+    path = "github.com/AlecGhost/spin"
 
 
 [languages]
