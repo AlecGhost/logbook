@@ -306,7 +306,7 @@ p.noindent {
 }
 
 /* Monospace & Inline Code (GitHub Style) */
-.ec-lmtt-12, .ec-lmtt-10x-x-109, code.verb, tt, code {
+.ec-lmtt-12, .ec-lmtt-10x-x-109, code.verb, tt, code, code.inline-code {
   font-family: var(--font-mono);
   font-size: 0.85em;
   color: var(--text-main);
@@ -314,6 +314,28 @@ p.noindent {
   padding: 0.2em 0.4em;
   border-radius: 6px;
   border: none;
+}
+
+/* Ensure inner colored spans within inline code inherit correctly and don't create nested badges */
+code span,
+code.inline-code span,
+.ec-lmtt-12 span,
+tt span,
+code.verb span {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+span[style*="color"] .ec-lmtt-12,
+span[style*="color"] .ec-lmtt-10x-x-109 {
+  color: inherit;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
 }
 
 /* Inside code listings, pre blocks, and algorithmic containers, strip inline badge styling */
@@ -915,11 +937,49 @@ aside.footnotetext {
   font-size: 0.8rem;
 }
 
+dl.thebibliography,
 .thebibliography {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  row-gap: 0.75rem;
+  column-gap: 0.85rem;
+  align-items: baseline;
   font-size: 0.9rem;
   line-height: 1.6;
   color: var(--text-secondary);
   margin: 1.5rem 0;
+}
+
+dt.thebibliography {
+  font-weight: 600;
+  color: var(--accent);
+  text-align: right;
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
+}
+
+dd.thebibliography {
+  margin: 0;
+  padding: 0;
+  color: var(--text-secondary);
+}
+
+dd.thebibliography p,
+dd.thebibliography p.noindent {
+  margin: 0;
+  padding: 0;
+  display: inline;
+}
+
+dd.thebibliography a {
+  color: var(--accent);
+  text-decoration: none;
+  word-break: break-all;
+}
+
+dd.thebibliography a:hover {
+  text-decoration: underline;
 }
 
 p.bibitem {
