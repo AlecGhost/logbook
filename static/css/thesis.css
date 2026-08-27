@@ -784,14 +784,7 @@
 .thesis-document img.math,
 .thesis-document img.displaymath,
 .thesis-document img.mapsto,
-.thesis-document img.notin {
-  vertical-align: middle;
-  filter: invert(0.92) hue-rotate(180deg) brightness(1.2);
-  display: inline-block;
-  margin: 0 0.15rem;
-}
-
-.thesis-document img[src*="Main0x.svg"],
+.thesis-document img.notin,
 .thesis-document img[src*="Main1x.svg"],
 .thesis-document img[src*="Main2x.svg"] {
   vertical-align: middle;
@@ -860,14 +853,18 @@
   margin: 2.25rem 0;
   display: block;
   width: 100%;
+  max-width: 100%;
   border: none;
   background: transparent;
   padding: 0;
   box-shadow: none;
+  overflow-x: auto;
 }
 
 .thesis-document div.table figure.float {
   margin: 0;
+  width: 100%;
+  max-width: 100%;
 }
 
 .thesis-document div.table figcaption.caption,
@@ -894,6 +891,7 @@
   width: 100%;
   max-width: 100%;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   margin: 0.75rem 0 2rem 0;
   border-radius: var(--radius-md);
   border: 1px solid var(--border);
@@ -970,6 +968,8 @@
   color: var(--text-main) !important;
   line-height: 1.5 !important;
   background: transparent !important;
+  word-break: normal;
+  overflow-wrap: break-word;
 }
 
 .thesis-document table.tabular tbody tr:nth-child(even) td,
@@ -991,24 +991,70 @@
   display: none !important;
 }
 
+@media (max-width: 640px) {
+  .thesis-document table.tabular th,
+  .thesis-document table.longtable th,
+  .thesis-document table.tabular thead th,
+  .thesis-document table.longtable thead th,
+  .thesis-document table.tabular thead td,
+  .thesis-document table.longtable thead td,
+  .thesis-document div.tabular th {
+    padding: 0.5rem 0.65rem !important;
+    font-size: 0.8rem !important;
+  }
+
+  .thesis-document table.tabular tbody td,
+  .thesis-document table.longtable tbody td,
+  .thesis-document table.tabular td.td11,
+  .thesis-document table.longtable td.td11,
+  .thesis-document div.tabular tbody td {
+    padding: 0.5rem 0.65rem !important;
+    font-size: 0.8rem !important;
+  }
+}
+
 /* ==========================================================================
    9. FIGURES & CAPTIONS
    ========================================================================== */
 
-.thesis-document figure.figure {
+.thesis-document figure.figure,
+.thesis-document .wrapfig-r,
+.thesis-document .wrapfig-l,
+.thesis-document div.figure {
   margin: 2.5rem 0;
   text-align: center;
+  width: 100%;
+  max-width: 100%;
+  float: none !important;
+  clear: both;
+  display: block;
 }
 
-.thesis-document figure.figure img {
-  max-width: 100%;
-  height: auto;
+.thesis-document figure.figure img,
+.thesis-document .wrapfig-r img,
+.thesis-document .wrapfig-l img,
+.thesis-document div.figure img {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  display: block;
   margin: 0 auto;
   border-radius: var(--radius-md);
   border: 1px solid var(--border);
   background-color: #ffffff;
-  padding: 8px;
+  padding: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+}
+
+.thesis-document figure.figure img[src*="Main0x.svg"],
+.thesis-document .wrapfig-r img[src*="Main0x.svg"],
+.thesis-document div.figure img[src*="Main0x.svg"] {
+  filter: none !important;
+  background-color: #ffffff !important;
+  padding: 1.5rem !important;
+  max-width: 540px !important;
+  width: 100% !important;
 }
 
 .thesis-document figcaption.caption,
