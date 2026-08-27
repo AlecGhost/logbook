@@ -44,6 +44,6 @@ enableRobotsTXT = true
 [params]
   author = "AlecGhost"
   brand = "AlecGhost/Logbook"
-  description = "My loogbook. Empty for now..."
+  description = "Personal loogbook."
   standaloneSection = "notes"
   github = "https://github.com/AlecGhost"
