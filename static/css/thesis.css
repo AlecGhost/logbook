@@ -1,21 +1,30 @@
 /* ==========================================================================
    MASTER THESIS CUSTOM STYLES (Lamb Architecture)
-   Reuses Logbook & Spin Theme Design Tokens (Minimalist Dark Theme)
+   Catppuccin Mocha (Base Site) & Catppuccin Latte (Pre-highlighted Code Blocks)
    ========================================================================== */
 
-:root {
-  --code-bg: #222734;
-  --code-border: #363d4e;
+.thesis-document {
+  max-width: 100%;
+
+  /* Catppuccin Latte Design Tokens for Pre-highlighted Code */
+  --latte-bg: #eff1f5;
+  --latte-bg-subtle: #e6e9ef;
+  --latte-border: #ccd0da;
+  --latte-border-hover: #bcc0cc;
+  --latte-text: #4c4f69;
+  --latte-muted: #8c8fa1;
+  --latte-blue: #1e66f5;
 }
 
 /* Target jump highlights */
-:target {
+.thesis-document :target,
+.thesis-document:target {
   animation: thesis-target-pulse 2.5s ease-out;
 }
 
 @keyframes thesis-target-pulse {
   0% {
-    background-color: rgba(88, 166, 255, 0.28);
+    background-color: rgba(137, 180, 250, 0.28); /* Catppuccin Mocha Blue */
     border-radius: var(--radius-sm);
   }
   100% {
@@ -24,9 +33,19 @@
 }
 
 /* Smooth anchor scrolling offsets for sticky navigation */
-[id], a[id], span[id], dt[id], tr[id], div[id],
-.chapterHead, .sectionHead, .subsectionHead, .subsubsectionHead,
-.likesectionHead, .likechapterHead, .likeparagraphHead {
+.thesis-document [id],
+.thesis-document a[id],
+.thesis-document span[id],
+.thesis-document dt[id],
+.thesis-document tr[id],
+.thesis-document div[id],
+.thesis-document .chapterHead,
+.thesis-document .sectionHead,
+.thesis-document .subsectionHead,
+.thesis-document .subsubsectionHead,
+.thesis-document .likesectionHead,
+.thesis-document .likechapterHead,
+.thesis-document .likeparagraphHead {
   scroll-margin-top: 5rem;
 }
 
@@ -34,11 +53,7 @@
    1. ACADEMIC THESIS HEADER CARD & HERO BANNER
    ========================================================================== */
 
-.thesis-document {
-  max-width: 100%;
-}
-
-.thesis-header-card {
+.thesis-document .thesis-header-card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
@@ -47,10 +62,10 @@
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
-.thesis-header-top {
+.thesis-document .thesis-header-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -58,14 +73,14 @@
   flex-wrap: wrap;
 }
 
-.thesis-header-badge {
+.thesis-document .thesis-header-badge {
   font-size: 0.78rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  background: rgba(126, 231, 135, 0.12);
+  background: rgba(166, 227, 161, 0.12); /* Catppuccin Mocha Green */
   color: var(--accent-tech);
-  border: 1px solid rgba(126, 231, 135, 0.25);
+  border: 1px solid rgba(166, 227, 161, 0.25);
   padding: 0.25rem 0.65rem;
   border-radius: var(--radius-sm);
   display: inline-flex;
@@ -73,30 +88,35 @@
   gap: 0.4rem;
 }
 
-.thesis-github-btn {
+.thesis-document .thesis-github-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: var(--bg-subtle);
-  border: 1px solid var(--border);
-  color: var(--text-main);
-  font-size: 0.85rem;
-  font-weight: 500;
-  padding: 0.4rem 0.85rem;
+  background: rgba(137, 180, 250, 0.12); /* Catppuccin Mocha Blue */
+  border: 1px solid rgba(137, 180, 250, 0.28);
+  color: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.25rem 0.7rem;
   border-radius: var(--radius-sm);
   transition: all var(--transition);
   text-decoration: none;
 }
 
-.thesis-github-btn:hover {
-  background: var(--surface-hover);
-  border-color: var(--border-hover);
+.thesis-document .thesis-github-btn svg {
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.thesis-document .thesis-github-btn:hover {
+  background: rgba(137, 180, 250, 0.22);
+  border-color: rgba(137, 180, 250, 0.45);
   color: var(--accent);
   text-decoration: none;
   transform: translateY(-1px);
 }
 
-.thesis-main-title {
+.thesis-document .thesis-main-title {
   font-size: 1.75rem;
   font-weight: 700;
   color: var(--text-main);
@@ -105,14 +125,14 @@
   letter-spacing: -0.02em;
 }
 
-.thesis-subtitle {
+.thesis-document .thesis-subtitle {
   font-size: 1.05rem;
   color: var(--text-secondary);
   line-height: 1.55;
   margin: 0;
 }
 
-.thesis-meta-grid {
+.thesis-document .thesis-meta-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1.25rem;
@@ -120,13 +140,13 @@
   border-top: 1px solid var(--border);
 }
 
-.thesis-meta-item {
+.thesis-document .thesis-meta-item {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
 }
 
-.thesis-meta-label {
+.thesis-document .thesis-meta-label {
   font-size: 0.72rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -134,14 +154,15 @@
   color: var(--text-muted);
 }
 
-.thesis-meta-val {
+.thesis-document .thesis-meta-val {
   font-size: 0.9rem;
   color: var(--text-main);
   line-height: 1.45;
 }
 
 /* Abstract & Acknowledgements Cards */
-.abstract-card, .acknowledgements-card {
+.thesis-document .abstract-card,
+.thesis-document .acknowledgements-card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-left: 4px solid var(--accent);
@@ -151,34 +172,34 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
 }
 
-.acknowledgements-card {
+.thesis-document .acknowledgements-card {
   border-left-color: var(--accent-dnd);
 }
 
-.card-badge-header {
+.thesis-document .card-badge-header {
   margin-bottom: 0.85rem;
 }
 
-.card-badge {
+.thesis-document .card-badge {
   font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--accent);
-  background: rgba(88, 166, 255, 0.1);
-  border: 1px solid rgba(88, 166, 255, 0.25);
+  background: rgba(137, 180, 250, 0.12); /* Catppuccin Mocha Blue */
+  border: 1px solid rgba(137, 180, 250, 0.25);
   padding: 0.2rem 0.55rem;
   border-radius: var(--radius-sm);
   display: inline-block;
 }
 
-.ack-badge {
+.thesis-document .ack-badge {
   color: var(--accent-dnd);
-  background: rgba(240, 136, 62, 0.1);
-  border-color: rgba(240, 136, 62, 0.25);
+  background: rgba(250, 179, 135, 0.12); /* Catppuccin Mocha Peach */
+  border-color: rgba(250, 179, 135, 0.25);
 }
 
-.card-body-text {
+.thesis-document .card-body-text {
   font-size: 1rem;
   line-height: 1.75;
   color: var(--text-main);
@@ -188,7 +209,8 @@
    2. TYPOGRAPHY, HEADINGS & SECTIONS
    ========================================================================== */
 
-.chapterHead, .likechapterHead {
+.thesis-document .chapterHead,
+.thesis-document .likechapterHead {
   font-size: 1.75rem;
   font-weight: 700;
   color: var(--text-main);
@@ -200,7 +222,8 @@
   line-height: 1.3;
 }
 
-.chapterHead .titlemark, .likechapterHead .titlemark {
+.thesis-document .chapterHead .titlemark,
+.thesis-document .likechapterHead .titlemark {
   display: block;
   font-size: 0.85rem;
   font-weight: 600;
@@ -210,7 +233,8 @@
   margin-bottom: 0.25rem;
 }
 
-.sectionHead, .likesectionHead {
+.thesis-document .sectionHead,
+.thesis-document .likesectionHead {
   font-size: 1.35rem;
   font-weight: 600;
   color: var(--text-main);
@@ -222,7 +246,8 @@
   line-height: 1.35;
 }
 
-.sectionHead .titlemark, .likesectionHead .titlemark {
+.thesis-document .sectionHead .titlemark,
+.thesis-document .likesectionHead .titlemark {
   color: var(--accent);
   margin-right: 0.5rem;
   font-family: var(--font-mono);
@@ -230,7 +255,7 @@
   font-weight: 500;
 }
 
-.subsectionHead {
+.thesis-document .subsectionHead {
   font-size: 1.15rem;
   font-weight: 600;
   color: var(--text-main);
@@ -239,7 +264,7 @@
   line-height: 1.4;
 }
 
-.subsectionHead .titlemark {
+.thesis-document .subsectionHead .titlemark {
   color: var(--accent);
   margin-right: 0.4rem;
   font-family: var(--font-mono);
@@ -247,7 +272,7 @@
   font-weight: 500;
 }
 
-.subsubsectionHead {
+.thesis-document .subsubsectionHead {
   font-size: 1.05rem;
   font-weight: 600;
   color: var(--text-secondary);
@@ -255,7 +280,7 @@
   margin-bottom: 0.5rem;
 }
 
-.subsubsectionHead .titlemark {
+.thesis-document .subsubsectionHead .titlemark {
   color: var(--accent);
   margin-right: 0.4rem;
   font-family: var(--font-mono);
@@ -263,7 +288,7 @@
   font-weight: 500;
 }
 
-.likeparagraphHead {
+.thesis-document .likeparagraphHead {
   font-size: 1rem;
   font-weight: 700;
   color: var(--text-main);
@@ -272,56 +297,68 @@
 }
 
 /* Paragraphs & Text Elements */
-p {
+.thesis-document p {
   margin-top: 0;
   margin-bottom: 1.15rem;
   line-height: 1.75;
   color: var(--text-main);
 }
 
-p.noindent {
-  text-indent: 0;
-}
-
-.noindent {
+.thesis-document p.noindent,
+.thesis-document .noindent {
   text-indent: 0;
 }
 
 /* Reset TeX4ht inline font sizes & format nicely */
-.rm-lmri-12, .rm-lmri-10, .rm-lmri-10x-x-109 {
+.thesis-document .rm-lmri-12,
+.thesis-document .rm-lmri-10,
+.thesis-document .rm-lmri-10x-x-109 {
   font-style: italic;
 }
 
-.rm-lmbx-12, .rm-lmbx-10, .rm-lmbxi-10x-x-109, .rm-lmbxi-10x-x-120 {
+.thesis-document .rm-lmbx-12,
+.thesis-document .rm-lmbx-10,
+.thesis-document .rm-lmbxi-10x-x-109,
+.thesis-document .rm-lmbxi-10x-x-120 {
   font-weight: 600;
 }
 
-.small-caps, .rm-lmcsc-10x-x-120, .rm-lmcsc-10x-x-144 {
+.thesis-document .small-caps,
+.thesis-document .rm-lmcsc-10x-x-120,
+.thesis-document .rm-lmcsc-10x-x-144 {
   font-variant: small-caps;
   letter-spacing: 0.04em;
 }
 
-.rm-lmr-12x-x-120, .rm-lmr-10x-x-109, .rm-lmr-10, .rm-lmr-8 {
+.thesis-document .rm-lmr-12x-x-120,
+.thesis-document .rm-lmr-10x-x-109,
+.thesis-document .rm-lmr-10,
+.thesis-document .rm-lmr-8 {
   font-size: inherit;
 }
 
-/* Monospace & Inline Code (GitHub Style) */
-.ec-lmtt-12, .ec-lmtt-10x-x-109, code.verb, tt, code, code.inline-code {
+/* Monospace & Inline Code in Text (GitHub / Catppuccin Mocha Style) */
+.thesis-document .ec-lmtt-12,
+.thesis-document .ec-lmtt-10x-x-109,
+.thesis-document code.verb,
+.thesis-document tt,
+.thesis-document code,
+.thesis-document code.inline-code {
   font-family: var(--font-mono);
   font-size: 0.85em;
   color: var(--text-main);
-  background: rgba(110, 118, 129, 0.28);
-  padding: 0.2em 0.4em;
-  border-radius: 6px;
-  border: none;
+  background: rgba(69, 71, 90, 0.45); /* Catppuccin Mocha Surface1 */
+  border: 1px solid var(--border);
+  padding: 0.15em 0.4em;
+  border-radius: var(--radius-sm);
 }
 
 /* Ensure inner colored spans within inline code inherit correctly and don't create nested badges */
-code span,
-code.inline-code span,
-.ec-lmtt-12 span,
-tt span,
-code.verb span {
+.thesis-document code span,
+.thesis-document code.inline-code span,
+.thesis-document .ec-lmtt-12 span,
+.thesis-document tt span,
+.thesis-document code.verb span {
   background: transparent !important;
   border: none !important;
   border-radius: 0 !important;
@@ -330,34 +367,35 @@ code.verb span {
   font-size: inherit;
 }
 
-span[style*="color"] .ec-lmtt-12,
-span[style*="color"] .ec-lmtt-10x-x-109 {
+.thesis-document span[style*="color"] .ec-lmtt-12,
+.thesis-document span[style*="color"] .ec-lmtt-10x-x-109 {
   color: inherit;
   background: transparent;
   padding: 0;
+  border: none;
   border-radius: 0;
 }
 
 /* Inside code listings, pre blocks, and algorithmic containers, strip inline badge styling */
-pre .ec-lmtt-12,
-pre .ec-lmtt-10x-x-109,
-pre code.verb,
-pre tt,
-pre code,
-.box-content .ec-lmtt-12,
-.box-content .ec-lmtt-10x-x-109,
-.box-content code.verb,
-.box-content tt,
-.box-content code,
-.algorithmic .ec-lmtt-12,
-.algorithmic .ec-lmtt-10x-x-109,
-.algorithmic code.verb,
-.algorithmic tt,
-.algorithmic code {
-  background: transparent;
-  border: none;
-  border-radius: 0;
-  padding: 0;
+.thesis-document pre .ec-lmtt-12,
+.thesis-document pre .ec-lmtt-10x-x-109,
+.thesis-document pre code.verb,
+.thesis-document pre tt,
+.thesis-document pre code,
+.thesis-document .box-content .ec-lmtt-12,
+.thesis-document .box-content .ec-lmtt-10x-x-109,
+.thesis-document .box-content code.verb,
+.thesis-document .box-content tt,
+.thesis-document .box-content code,
+.thesis-document .algorithmic .ec-lmtt-12,
+.thesis-document .algorithmic .ec-lmtt-10x-x-109,
+.thesis-document .algorithmic code.verb,
+.thesis-document .algorithmic tt,
+.thesis-document .algorithmic code {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
   color: inherit;
   font-size: inherit;
 }
@@ -366,7 +404,7 @@ pre code,
    3. TABLE OF CONTENTS & QUICK OUTLINE
    ========================================================================== */
 
-.tableofcontents {
+.thesis-document .tableofcontents {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
@@ -375,7 +413,7 @@ pre code,
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-.tableofcontents span.chapterToc {
+.thesis-document .tableofcontents span.chapterToc {
   display: block;
   font-weight: 600;
   margin-top: 0.85rem;
@@ -385,14 +423,14 @@ pre code,
   font-size: 0.98rem;
 }
 
-.tableofcontents span.chapterToc:first-of-type,
-.tableofcontents span.likechapterToc:first-of-type {
+.thesis-document .tableofcontents span.chapterToc:first-of-type,
+.thesis-document .tableofcontents span.likechapterToc:first-of-type {
   border-top: none;
   margin-top: 0;
   padding-top: 0;
 }
 
-.tableofcontents span.sectionToc {
+.thesis-document .tableofcontents span.sectionToc {
   display: block;
   padding-left: 1.25rem;
   font-size: 0.9rem;
@@ -400,7 +438,7 @@ pre code,
   color: var(--text-secondary);
 }
 
-.tableofcontents span.subsectionToc {
+.thesis-document .tableofcontents span.subsectionToc {
   display: block;
   padding-left: 2.5rem;
   font-size: 0.85rem;
@@ -408,7 +446,7 @@ pre code,
   color: var(--text-muted);
 }
 
-.tableofcontents span.subsubsectionToc {
+.thesis-document .tableofcontents span.subsubsectionToc {
   display: block;
   padding-left: 3.5rem;
   font-size: 0.82rem;
@@ -416,7 +454,7 @@ pre code,
   color: var(--text-muted);
 }
 
-.tableofcontents a {
+.thesis-document .tableofcontents a {
   color: inherit;
   text-decoration: none;
   padding: 0.15rem 0.35rem;
@@ -424,14 +462,15 @@ pre code,
   transition: all var(--transition);
 }
 
-.tableofcontents a:hover {
+.thesis-document .tableofcontents a:hover {
   color: var(--accent);
   background: var(--surface-hover);
   text-decoration: none;
 }
 
 /* Lists of Figures / Tables */
-.lofToc, .lotToc {
+.thesis-document .lofToc,
+.thesis-document .lotToc {
   display: block;
   font-size: 0.9rem;
   margin: 0.4rem 0;
@@ -441,26 +480,30 @@ pre code,
   border-radius: var(--radius-sm);
 }
 
-.lofToc:hover, .lotToc:hover {
+.thesis-document .lofToc:hover,
+.thesis-document .lotToc:hover {
   background: var(--surface);
   color: var(--accent);
 }
 
 /* ==========================================================================
    4. CODE BLOCKS, LISTINGS & TRACE BOXES
+   - Code Blocks (.codebox): Catppuccin Latte Bright Theme for syntax highlighting
+   - Trace Boxes (.tracebox): Catppuccin Mocha Dark Terminal Theme for traces
    ========================================================================== */
 
-.tracebox {
+/* Trace Boxes (Dark Terminal Execution Traces) */
+.thesis-document .tracebox {
   background: var(--surface);
   border: 1px solid var(--border);
   border-left: 4px solid var(--accent-tag);
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
   margin: 1.75rem 0;
   overflow: hidden;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
 }
 
-.tracebox .box-title {
+.thesis-document .tracebox .box-title {
   background: var(--bg-subtle);
   padding: 0.65rem 1rem;
   font-size: 0.85rem;
@@ -473,8 +516,9 @@ pre code,
   gap: 0.5rem;
 }
 
-.tracebox .box-content {
-  background: var(--code-bg);
+.thesis-document .tracebox .box-content {
+  background: var(--bg-subtle);
+  color: var(--text-main);
   padding: 1rem 1.25rem;
   overflow-x: auto;
   font-family: var(--font-mono);
@@ -482,15 +526,42 @@ pre code,
   line-height: 1.6;
 }
 
-.codebox {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  margin: 1.75rem 0;
-  overflow: hidden;
+.thesis-document .tracebox .box-content pre.fancyvrb,
+.thesis-document .tracebox .box-content pre.verbatim,
+.thesis-document .tracebox .box-content pre {
+  display: block;
+  white-space: pre;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  color: var(--text-main) !important;
 }
 
-.codebox .box-title {
+.thesis-document .tracebox .box-content .fancyvrblineno {
+  display: inline-block;
+  min-width: 2.2rem;
+  margin-right: 0.75rem;
+  text-align: right;
+  color: var(--text-muted) !important;
+  user-select: none;
+  font-size: 0.75rem;
+}
+
+/* Code Boxes (Bright Catppuccin Latte Theme for Pre-highlighted Code) */
+.thesis-document .codebox {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  margin: 1.75rem 0;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.thesis-document .codebox .box-title {
   background: var(--bg-subtle);
   padding: 0.65rem 1rem;
   font-size: 0.85rem;
@@ -499,19 +570,20 @@ pre code,
   border-bottom: 1px solid var(--border);
 }
 
-.codebox .box-content {
-  background: var(--code-bg);
+.thesis-document .codebox .box-content {
+  background: var(--latte-bg);
+  color: var(--latte-text);
   padding: 1rem 1.25rem;
   overflow-x: auto;
   font-family: var(--font-mono);
   font-size: 0.85rem;
   line-height: 1.6;
+  border-top: 1px solid var(--latte-border);
 }
 
-/* Inside codebox and tracebox, remove nested borders/margins/paddings to prevent double-framing */
-.box-content pre.fancyvrb,
-.box-content pre.verbatim,
-.box-content pre {
+.thesis-document .codebox .box-content pre.fancyvrb,
+.thesis-document .codebox .box-content pre.verbatim,
+.thesis-document .codebox .box-content pre {
   display: block;
   white-space: pre;
   background: transparent !important;
@@ -520,27 +592,39 @@ pre code,
   margin: 0 !important;
   padding: 0 !important;
   box-shadow: none !important;
+  color: var(--latte-text) !important;
 }
 
-.box-content div.algorithmic,
-.box-content .algorithmic {
+.thesis-document .codebox .box-content .fancyvrblineno {
+  display: inline-block;
+  min-width: 2.2rem;
+  margin-right: 0.75rem;
+  text-align: right;
+  color: var(--latte-muted) !important;
+  user-select: none;
+  font-size: 0.75rem;
+}
+
+.thesis-document .codebox .box-content div.algorithmic,
+.thesis-document .codebox .box-content .algorithmic {
   background: transparent !important;
   border: none !important;
   border-radius: 0 !important;
   margin: 0 !important;
   padding: 0 !important;
   box-shadow: none !important;
+  color: var(--latte-text) !important;
 }
 
-.box-content > p,
-.box-content p {
+.thesis-document .box-content > p,
+.thesis-document .box-content p {
   margin: 0 !important;
   padding: 0 !important;
 }
 
-.notebox {
-  background: rgba(126, 231, 135, 0.06);
-  border: 1px solid rgba(126, 231, 135, 0.2);
+.thesis-document .notebox {
+  background: rgba(166, 227, 161, 0.08); /* Catppuccin Mocha Green */
+  border: 1px solid rgba(166, 227, 161, 0.25);
   border-left: 4px solid var(--accent-tech);
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
   padding: 1rem 1.25rem;
@@ -548,33 +632,35 @@ pre code,
   color: var(--text-main);
 }
 
-/* Verbatim / Listings (Standalone) */
-pre.fancyvrb, pre.verbatim {
+/* Verbatim / Listings (Standalone with Catppuccin Latte Styling) */
+.thesis-document pre.fancyvrb,
+.thesis-document pre.verbatim {
   display: block;
   white-space: pre;
-  background: var(--code-bg);
-  border: 1px solid var(--code-border);
+  background: var(--latte-bg);
+  border: 1px solid var(--latte-border);
   border-radius: var(--radius-md);
   padding: 1rem 1.25rem;
   overflow-x: auto;
   font-family: var(--font-mono);
   font-size: 0.85rem;
   line-height: 1.6;
-  color: #cdd6f4;
+  color: var(--latte-text);
   margin: 1.5rem 0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
-.fancyvrblineno {
+.thesis-document .fancyvrblineno {
   display: inline-block;
   min-width: 2.2rem;
   margin-right: 0.75rem;
   text-align: right;
-  color: var(--text-muted);
+  color: var(--latte-muted);
   user-select: none;
   font-size: 0.75rem;
 }
 
-.fancyvrbline {
+.thesis-document .fancyvrbline {
   display: inline;
 }
 
@@ -582,23 +668,26 @@ pre.fancyvrb, pre.verbatim {
    5. ALGORITHMS & PSEUDOCODE
    ========================================================================== */
 
-.algorithmic {
+.thesis-document .algorithmic {
   font-family: var(--font-mono);
   font-size: 0.88rem;
   line-height: 1.6;
   white-space: normal;
 }
 
-div.algorithmic, div.minipage .algorithmic {
-  background: var(--code-bg);
-  border: 1px solid var(--border);
+.thesis-document div.algorithmic,
+.thesis-document div.minipage .algorithmic {
+  background: var(--latte-bg);
+  border: 1px solid var(--latte-border);
   border-radius: var(--radius-md);
   padding: 1.25rem;
   margin: 1.5rem 0;
   overflow-x: auto;
+  color: var(--latte-text);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
-.algorithmic .line {
+.thesis-document .algorithmic .line {
   display: flex;
   align-items: baseline;
   min-height: 1.55em;
@@ -607,52 +696,52 @@ div.algorithmic, div.minipage .algorithmic {
   white-space: pre-wrap;
 }
 
-.algorithmic .line > span.algorithmic {
+.thesis-document .algorithmic .line > span.algorithmic {
   white-space: pre-wrap;
   flex: 1;
 }
 
-.algorithmic .label,
-.algorithmic span.label {
+.thesis-document .algorithmic .label,
+.thesis-document .algorithmic span.label {
   display: inline-block;
   min-width: 2.2rem;
   width: 2.2rem;
   margin-right: 0.75rem;
   text-align: right;
-  color: var(--text-muted);
+  color: var(--latte-muted);
   user-select: none;
   font-size: 0.75rem;
   flex-shrink: 0;
   white-space: nowrap;
 }
 
-.algorithmic .label .rm-lmr-10 {
+.thesis-document .algorithmic .label .rm-lmr-10 {
   font-size: 0.75rem;
-  color: var(--text-muted);
+  color: var(--latte-muted);
 }
 
-.algorithmic br.algorithmic {
+.thesis-document .algorithmic br.algorithmic {
   display: none !important;
 }
 
-.algorithmic span.empty {
+.thesis-document .algorithmic span.empty {
   display: block;
   height: 0.5rem;
   margin: 0;
   padding: 0;
 }
 
-.algorithmic span.empty + span.empty {
+.thesis-document .algorithmic span.empty + span.empty {
   display: none !important;
 }
 
-.algorithmic > span.empty:first-child,
-.algorithmic > span.empty:last-child {
+.thesis-document .algorithmic > span.empty:first-child,
+.thesis-document .algorithmic > span.empty:last-child {
   display: none !important;
 }
 
-.algorithmic strong {
-  color: var(--accent);
+.thesis-document .algorithmic strong {
+  color: var(--latte-blue);
   font-weight: 600;
 }
 
@@ -660,7 +749,7 @@ div.algorithmic, div.minipage .algorithmic {
    6. THEOREMS, DEFINITIONS & PROOFS
    ========================================================================== */
 
-div.newtheorem {
+.thesis-document div.newtheorem {
   background: var(--surface);
   border: 1px solid var(--border);
   border-left: 4px solid var(--accent);
@@ -669,7 +758,7 @@ div.newtheorem {
   margin: 1.75rem 0;
 }
 
-div.newtheorem .head {
+.thesis-document div.newtheorem .head {
   font-weight: 700;
   color: var(--accent);
   display: block;
@@ -679,7 +768,7 @@ div.newtheorem .head {
   letter-spacing: 0.03em;
 }
 
-.proof {
+.thesis-document .proof {
   background: var(--surface);
   border-left: 3px solid var(--text-muted);
   padding: 1rem 1.25rem;
@@ -692,21 +781,27 @@ div.newtheorem .head {
    7. MATHEMATICS & SVGs
    ========================================================================== */
 
-img.math, img.displaymath, img.mapsto, img.notin {
+.thesis-document img.math,
+.thesis-document img.displaymath,
+.thesis-document img.mapsto,
+.thesis-document img.notin {
   vertical-align: middle;
   filter: invert(0.92) hue-rotate(180deg) brightness(1.2);
   display: inline-block;
   margin: 0 0.15rem;
 }
 
-img[src*="Main0x.svg"], img[src*="Main1x.svg"], img[src*="Main2x.svg"] {
+.thesis-document img[src*="Main0x.svg"],
+.thesis-document img[src*="Main1x.svg"],
+.thesis-document img[src*="Main2x.svg"] {
   vertical-align: middle;
   filter: invert(0.92) hue-rotate(180deg) brightness(1.2);
   display: inline-block;
   margin: 0 0.15rem;
 }
 
-div.par-math-display, div.math-display {
+.thesis-document div.par-math-display,
+.thesis-document div.math-display {
   text-align: center;
   margin: 1.5rem 0;
   overflow-x: auto;
@@ -714,7 +809,10 @@ div.par-math-display, div.math-display {
 }
 
 /* Math alignment tables (LaTeX \begin{align}) - completely borderless */
-table.align, table.align-star, table.equation, table.equation-star {
+.thesis-document table.align,
+.thesis-document table.align-star,
+.thesis-document table.equation,
+.thesis-document table.equation-star {
   width: auto;
   max-width: 100%;
   margin: 1.5rem auto;
@@ -724,7 +822,10 @@ table.align, table.align-star, table.equation, table.equation-star {
   border-collapse: collapse;
 }
 
-table.align td, table.align-star td, table.equation td, table.equation-star td {
+.thesis-document table.align td,
+.thesis-document table.align-star td,
+.thesis-document table.equation td,
+.thesis-document table.equation-star td {
   border: none !important;
   background: transparent !important;
   padding: 0.25rem 0.5rem;
@@ -732,13 +833,18 @@ table.align td, table.align-star td, table.equation td, table.equation-star td {
   text-align: left;
 }
 
-table.equation td.eq-no {
+.thesis-document table.equation td.eq-no {
   text-align: right;
   width: 50px;
   color: var(--text-muted);
 }
 
-.lmsy-10x-x-120, .lmmi-12, .lmmi-10x-x-109, .lmsy-10x-x-109, .lmmi-8, .lmsy8- {
+.thesis-document .lmsy-10x-x-120,
+.thesis-document .lmmi-12,
+.thesis-document .lmmi-10x-x-109,
+.thesis-document .lmsy-10x-x-109,
+.thesis-document .lmmi-8,
+.thesis-document .lmsy8- {
   font-family: inherit;
   font-style: normal;
 }
@@ -748,7 +854,9 @@ table.equation td.eq-no {
    ========================================================================== */
 
 /* Clean reset for LaTeX table wrappers */
-div.table, div.table figure.float, div.longtable {
+.thesis-document div.table,
+.thesis-document div.table figure.float,
+.thesis-document div.longtable {
   margin: 2.25rem 0;
   display: block;
   width: 100%;
@@ -758,11 +866,13 @@ div.table, div.table figure.float, div.longtable {
   box-shadow: none;
 }
 
-div.table figure.float {
+.thesis-document div.table figure.float {
   margin: 0;
 }
 
-div.table figcaption.caption, div.longtable caption, caption.longtable {
+.thesis-document div.table figcaption.caption,
+.thesis-document div.longtable caption,
+.thesis-document caption.longtable {
   display: block;
   font-size: 0.92rem;
   font-weight: 600;
@@ -772,13 +882,14 @@ div.table figcaption.caption, div.longtable caption, caption.longtable {
   padding: 0;
 }
 
-div.table figcaption.caption span.id, caption.longtable span.id {
+.thesis-document div.table figcaption.caption span.id,
+.thesis-document caption.longtable span.id {
   color: var(--accent);
   font-weight: 700;
   margin-right: 0.35rem;
 }
 
-div.tabular {
+.thesis-document div.tabular {
   display: block;
   width: 100%;
   max-width: 100%;
@@ -790,9 +901,9 @@ div.tabular {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
-table.tabular,
-table.longtable,
-div.tabular table {
+.thesis-document table.tabular,
+.thesis-document table.longtable,
+.thesis-document div.tabular table {
   display: table !important;
   width: 100% !important;
   min-width: 100% !important;
@@ -803,32 +914,32 @@ div.tabular table {
   margin: 0 !important;
 }
 
-table.tabular thead,
-table.longtable thead,
-div.tabular thead {
+.thesis-document table.tabular thead,
+.thesis-document table.longtable thead,
+.thesis-document div.tabular thead {
   display: table-header-group !important;
 }
 
-table.tabular tbody,
-table.longtable tbody,
-div.tabular tbody {
+.thesis-document table.tabular tbody,
+.thesis-document table.longtable tbody,
+.thesis-document div.tabular tbody {
   display: table-row-group !important;
 }
 
-table.tabular tr,
-table.longtable tr,
-div.tabular tr {
+.thesis-document table.tabular tr,
+.thesis-document table.longtable tr,
+.thesis-document div.tabular tr {
   display: table-row !important;
 }
 
 /* Table Header Cells */
-table.tabular th,
-table.longtable th,
-table.tabular thead th,
-table.longtable thead th,
-table.tabular thead td,
-table.longtable thead td,
-div.tabular th {
+.thesis-document table.tabular th,
+.thesis-document table.longtable th,
+.thesis-document table.tabular thead th,
+.thesis-document table.longtable thead th,
+.thesis-document table.tabular thead td,
+.thesis-document table.longtable thead td,
+.thesis-document div.tabular th {
   display: table-cell !important;
   background: var(--bg-subtle) !important;
   font-weight: 600 !important;
@@ -840,19 +951,19 @@ div.tabular th {
   line-height: 1.4 !important;
 }
 
-table.tabular th strong,
-table.longtable th strong,
-div.tabular th strong {
+.thesis-document table.tabular th strong,
+.thesis-document table.longtable th strong,
+.thesis-document div.tabular th strong {
   color: var(--accent) !important;
   font-weight: 600 !important;
 }
 
 /* Table Body Cells */
-table.tabular tbody td,
-table.longtable tbody td,
-table.tabular td.td11,
-table.longtable td.td11,
-div.tabular tbody td {
+.thesis-document table.tabular tbody td,
+.thesis-document table.longtable tbody td,
+.thesis-document table.tabular td.td11,
+.thesis-document table.longtable td.td11,
+.thesis-document div.tabular tbody td {
   display: table-cell !important;
   padding: 0.75rem 1.25rem !important;
   border: 1px solid var(--border) !important;
@@ -861,22 +972,22 @@ div.tabular tbody td {
   background: transparent !important;
 }
 
-table.tabular tbody tr:nth-child(even) td,
-table.longtable tbody tr:nth-child(even) td,
-div.tabular tbody tr:nth-child(even) td {
-  background: rgba(255, 255, 255, 0.02) !important;
+.thesis-document table.tabular tbody tr:nth-child(even) td,
+.thesis-document table.longtable tbody tr:nth-child(even) td,
+.thesis-document div.tabular tbody tr:nth-child(even) td {
+  background: rgba(205, 214, 244, 0.03) !important; /* Catppuccin Mocha Text subtle row zebra */
 }
 
-table.tabular tbody tr:hover td,
-table.longtable tbody tr:hover td,
-table.tabular tr:hover td,
-table.longtable tr:hover td,
-div.tabular tbody tr:hover td {
+.thesis-document table.tabular tbody tr:hover td,
+.thesis-document table.longtable tbody tr:hover td,
+.thesis-document table.tabular tr:hover td,
+.thesis-document table.longtable tr:hover td,
+.thesis-document div.tabular tbody tr:hover td {
   background: var(--surface-hover) !important;
 }
 
 /* Hide dummy TeX4ht hline rows */
-tr.hline {
+.thesis-document tr.hline {
   display: none !important;
 }
 
@@ -884,12 +995,12 @@ tr.hline {
    9. FIGURES & CAPTIONS
    ========================================================================== */
 
-figure.figure {
+.thesis-document figure.figure {
   margin: 2.5rem 0;
   text-align: center;
 }
 
-figure.figure img {
+.thesis-document figure.figure img {
   max-width: 100%;
   height: auto;
   margin: 0 auto;
@@ -900,7 +1011,9 @@ figure.figure img {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
 }
 
-figcaption.caption, div.caption, .caption {
+.thesis-document figcaption.caption,
+.thesis-document div.caption,
+.thesis-document .caption {
   font-size: 0.88rem;
   color: var(--text-secondary);
   margin-top: 0.85rem;
@@ -908,7 +1021,9 @@ figcaption.caption, div.caption, .caption {
   line-height: 1.45;
 }
 
-figcaption.caption strong, div.caption strong, .caption strong {
+.thesis-document figcaption.caption strong,
+.thesis-document div.caption strong,
+.thesis-document .caption strong {
   color: var(--text-main);
   font-weight: 600;
 }
@@ -917,7 +1032,7 @@ figcaption.caption strong, div.caption strong, .caption strong {
    10. FOOTNOTES & BIBLIOGRAPHY
    ========================================================================== */
 
-div.footnotes {
+.thesis-document div.footnotes {
   border-top: 1px solid var(--border);
   padding-top: 1.5rem;
   margin-top: 3.5rem;
@@ -925,20 +1040,21 @@ div.footnotes {
   color: var(--text-secondary);
 }
 
-aside.footnotetext {
+.thesis-document aside.footnotetext {
   margin-bottom: 0.75rem;
   line-height: 1.6;
 }
 
-.footnote-mark, sup.textsuperscript {
+.thesis-document .footnote-mark,
+.thesis-document sup.textsuperscript {
   color: var(--accent);
   font-weight: 600;
   margin-right: 0.25rem;
   font-size: 0.8rem;
 }
 
-dl.thebibliography,
-.thebibliography {
+.thesis-document dl.thebibliography,
+.thesis-document .thebibliography {
   display: grid;
   grid-template-columns: auto 1fr;
   row-gap: 0.75rem;
@@ -950,7 +1066,7 @@ dl.thebibliography,
   margin: 1.5rem 0;
 }
 
-dt.thebibliography {
+.thesis-document dt.thebibliography {
   font-weight: 600;
   color: var(--accent);
   text-align: right;
@@ -959,43 +1075,44 @@ dt.thebibliography {
   padding: 0;
 }
 
-dd.thebibliography {
+.thesis-document dd.thebibliography {
   margin: 0;
   padding: 0;
   color: var(--text-secondary);
 }
 
-dd.thebibliography p,
-dd.thebibliography p.noindent {
+.thesis-document dd.thebibliography p,
+.thesis-document dd.thebibliography p.noindent {
   margin: 0;
   padding: 0;
   display: inline;
 }
 
-dd.thebibliography a {
+.thesis-document dd.thebibliography a {
   color: var(--accent);
   text-decoration: none;
   word-break: break-all;
 }
 
-dd.thebibliography a:hover {
+.thesis-document dd.thebibliography a:hover {
   text-decoration: underline;
 }
 
-p.bibitem {
+.thesis-document p.bibitem {
   margin-left: 2.2rem;
   text-indent: -2.2rem;
   margin-bottom: 0.85rem;
 }
 
-p.bibitem a {
+.thesis-document p.bibitem a {
   color: var(--accent);
   font-weight: 500;
 }
 
 /* Clean up unnecessary hr and empty breaks */
-br.newline {
+.thesis-document br.newline {
   display: block;
   content: "";
   margin-top: 0.25rem;
 }
+

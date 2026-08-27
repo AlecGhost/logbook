@@ -6,3 +6,7 @@ github.com/AlecGhost/spin v0.0.0-20260816080032-373f4f1ea476 h1:eaUKCnppQb/casxl
 github.com/AlecGhost/spin v0.0.0-20260816080032-373f4f1ea476/go.mod h1:bEL87dipCjsFdpOdQrnfEZlLD8bRTBbKylDs0ZyQJrU=
 github.com/AlecGhost/spin v0.0.0-20260816163430-af20f822dfb4 h1:kgKUqoAdVDvVvnqhLucDJklpZgPV7AzwIl3bNCLkAnU=
 github.com/AlecGhost/spin v0.0.0-20260816163430-af20f822dfb4/go.mod h1:bEL87dipCjsFdpOdQrnfEZlLD8bRTBbKylDs0ZyQJrU=
+github.com/AlecGhost/spin v0.0.0-20260827141515-a4348b780443 h1:bZecjCol8zYPBlfoVRhaYdV41ahlCw0TS2V3YsIhE88=
+github.com/AlecGhost/spin v0.0.0-20260827141515-a4348b780443/go.mod h1:bEL87dipCjsFdpOdQrnfEZlLD8bRTBbKylDs0ZyQJrU=
+github.com/AlecGhost/spin v0.0.0-20260827144909-1e2645ded2db h1:lK1yPDPt+BP/mXjGyjquTFVst7P/Px6tNEAqeYqbkRw=
+github.com/AlecGhost/spin v0.0.0-20260827144909-1e2645ded2db/go.mod h1:bEL87dipCjsFdpOdQrnfEZlLD8bRTBbKylDs0ZyQJrU=
