@@ -5,6 +5,6 @@ description: "Master's Thesis: Extending agentic AI utility while maintaining st
 tags: ["ai", "agents", "security", "ifc", "prompt-injection", "architecture", "thesis"]
 ---
 
-<link rel="stylesheet" href="/css/thesis.css">
+{{< stylesheet "css/thesis.css" >}}
 
-{{< include_html file="static/thesis/thesis.html" >}}
+{{< include_html "static/thesis/thesis.html" >}}

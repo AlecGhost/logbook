@@ -1,0 +1,2 @@
+{{ $src := .Get 0 | default (.Get "src") | default (.Get "href") }}
+<link rel="stylesheet" href="{{ $src | relURL }}">

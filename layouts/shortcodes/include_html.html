@@ -1,6 +1,9 @@
-{{ $path := .Get "file" }}
-{{ if (fileExists $path) }}
-  {{ readFile $path | safeHTML }}
+{{ $file := .Get 0 | default (.Get "file") }}
+{{ if (fileExists $file) }}
+  {{ $content := readFile $file }}
+  {{/* Automatically rewrite root-relative asset URLs to respect the configured baseURL/subpath */}}
+  {{ $content = replaceRE `(src|href)="/([^"]*)"` (printf `$1="%s$2"` ("" | relURL)) $content }}
+  {{ $content | safeHTML }}
 {{ else }}
-  <p><em>File not found: {{ $path }}</em></p>
+  <p><em>File not found: {{ $file }}</em></p>
 {{ end }}
