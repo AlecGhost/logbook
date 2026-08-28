@@ -1,4 +1,4 @@
-baseURL = "/"
+baseURL = "https://alecghost.uk/"
 defaultContentLanguage = "en"
 title = "AlecGhost's Logbook"
 enableRobotsTXT = true
