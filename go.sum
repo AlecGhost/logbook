@@ -12,3 +12,5 @@ github.com/AlecGhost/spin v0.0.0-20260827144909-1e2645ded2db h1:lK1yPDPt+BP/mXjG
 github.com/AlecGhost/spin v0.0.0-20260827144909-1e2645ded2db/go.mod h1:bEL87dipCjsFdpOdQrnfEZlLD8bRTBbKylDs0ZyQJrU=
 github.com/AlecGhost/spin v0.0.0-20260827214215-f354a49035ba h1:uVIoE3Gd6sLWjc6nToK31f0dE1HovY2n/tffTjAHn4g=
 github.com/AlecGhost/spin v0.0.0-20260827214215-f354a49035ba/go.mod h1:bEL87dipCjsFdpOdQrnfEZlLD8bRTBbKylDs0ZyQJrU=
+github.com/AlecGhost/spin v0.0.0-20260828181639-11d7510fb682 h1:kkdC5DYuohzl+qeqnuwpopysSyXRYp1H56rtUTxR9lg=
+github.com/AlecGhost/spin v0.0.0-20260828181639-11d7510fb682/go.mod h1:bEL87dipCjsFdpOdQrnfEZlLD8bRTBbKylDs0ZyQJrU=
